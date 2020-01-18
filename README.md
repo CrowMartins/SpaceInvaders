@@ -34,7 +34,7 @@ pip3 install pygame --user
 ## Para começar basta clonar este ficheiro e começar a programar
 
 ```
-git clone 
+git clone https://github.com/CrowMartins/SpaceInvaders.git
 ```
 
 
