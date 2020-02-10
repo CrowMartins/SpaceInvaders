@@ -63,7 +63,6 @@ class Main():
 				self.running = not self.running
 
 			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-				print('mouse down')
 				mousePosition = pygame.mouse.get_pos()
 				
 				if sound.mouseOver(mousePosition):
@@ -82,8 +81,6 @@ class Main():
 						sound.image = scaleImageSpeaker
 
 						pygame.mixer.music.unpause()
-
-
 				if playBtn.mouseOver(mousePosition):
-					print('redirect to battle')
-					self.navigateTo = 'Battle'
+					self.navigateTo = "Battle"
+

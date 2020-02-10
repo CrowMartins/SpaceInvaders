@@ -1,6 +1,8 @@
 import pygame
 import settings as settings
 from screens.mainScreen import Main
+from screens.battleScreen import Battle
+
 
 
 #Icon and Caption
@@ -22,11 +24,13 @@ pygame.mixer.music.play(-1)
 
 screens = {
 	'Main':Main(),
+	'Battle':Battle()
+
 }
 
-screenName = 'Main'
+screenName = 'Battle'
 
-screen = screens['Main']
+screen = screens['Battle']
 
 clock = pygame.time.Clock()
 
