@@ -30,7 +30,7 @@ screens = {
 
 screenName = 'Battle'
 
-screen = screens['Battle']
+screen = screens[screenName]
 
 clock = pygame.time.Clock()
 

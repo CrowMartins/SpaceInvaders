@@ -53,6 +53,7 @@ class Main():
 		return self.navigateTo
 
 	def draw(self):
+		self.navigateTo = 'Main'
 		self.window.blit(self.image,(self.x,self.y))
 		window.blit(scaleLogoImage,(settings.windowWidth / 2 - logoImageWidth / 2,100))
 		playBtn.draw()
@@ -64,11 +65,11 @@ class Main():
 
 			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 				mousePosition = pygame.mouse.get_pos()
-				
+
 				if sound.mouseOver(mousePosition):
 					if self.speaker:
 						self.speaker = not self.speaker
-						
+
 						# Change image volume
 
 						sound.image = muteImage
@@ -83,4 +84,3 @@ class Main():
 						pygame.mixer.music.unpause()
 				if playBtn.mouseOver(mousePosition):
 					self.navigateTo = "Battle"
-

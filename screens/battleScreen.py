@@ -31,9 +31,25 @@ scaleBackgroundImage = pygame.transform.scale(rotateBackgroundImage,(settings.wi
 
 speakerImage = pygame.image.load("assets/images/sound/speaker.png")
 scaleImageSpeaker = pygame.transform.scale(speakerImage,(32,32))
-sound = Button(window,scaleImageSpeaker,730,10)
+sound = Button(window,scaleImageSpeaker,680,10)
 
 muteImage = pygame.image.load("assets/images/sound/mute.png")
+
+#Create Pause Button
+pauseButton = pygame.image.load("assets/images/btn/pause.png");
+scalePauseButton = pygame.transform.scale(pauseButton,(32,32))
+pauseBtn = Button(window,scalePauseButton,720,10)
+
+
+#Home  Button
+homeButton = pygame.image.load("assets/images/btn/home.png");
+scaleHomeButton = pygame.transform.scale(homeButton,(32,32))
+homeBtn = Button(window,scaleHomeButton,760,10)
+
+#Exit  Button
+exitButton = pygame.image.load("assets/images/btn/exit.png");
+scaleExitButton = pygame.transform.scale(exitButton,(32,32))
+exitBtn = Button(window,scaleExitButton,400,400)
 
 
 #Create Player
@@ -66,13 +82,14 @@ class Battle():
 		self.y = 0
 		self.running = True
 		self.speaker = True
+		self.pause = False
 		self.navigateTo = 'Battle'
 
 	def navigate(self):
 		return self.navigateTo
 
 	def play(self):
-		
+
 
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
@@ -84,11 +101,23 @@ class Battle():
 
 			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 				mousePosition = pygame.mouse.get_pos()
-				
+
+
+				if homeBtn.mouseOver(mousePosition):
+					self.navigateTo = "Main"
+
+				if pauseBtn.mouseOver(mousePosition):
+					if self.pause:
+						self.pause = not self.pause
+					else:
+						self.pause = True
+
+
+
 				if sound.mouseOver(mousePosition):
 					if self.speaker:
 						self.speaker = not self.speaker
-						
+
 						# Change image volume
 
 						sound.image = muteImage
@@ -102,15 +131,27 @@ class Battle():
 
 						pygame.mixer.music.unpause()
 	def draw(self):
+		self.navigateTo = 'Battle'
 		self.window.blit(self.image,(self.x,self.y))
 		sound.draw()
 		player.draw()
-		player.move()
+
+		if self.pause == False:
+			player.move()
+			pygame.mixer.music.unpause()
+		else:
+			pygame.mixer.music.pause()
+			exitBtn.draw()
+
 		score.draw()
+		pauseBtn.draw()
+		homeBtn.draw()
 
 		for enemy in enemies:
 			enemy.draw()
-			enemy.move()
+
+			if self.pause == False:
+				enemy.move()
 
 			colision = math.hypot(enemy.x - bullet.x,enemy.y - bullet.y)
 
@@ -124,7 +165,9 @@ class Battle():
 				bullet.state = "ready"
 				bullet.y = 400
 
-				score.value += 1 
+				score.value += 1
+
+
+
 
 		self.play()
-
